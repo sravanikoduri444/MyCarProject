@@ -1,6 +1,7 @@
 package com.Car.controller;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,31 +17,32 @@ import com.Car.service.CarServiceInterface;
 public class CarController implements CarControllerInterface {
 	CarServiceInterface cs = null;
 	Scanner sc = null;
+	Logger log = Logger.getLogger("Car Controller");
 	public CarController(){
 	sc=new Scanner(System.in);
 	 cs = ServiceFactory.createObject();
 	}
 	public int createProfileController() {
+		log.info("inside create profile method of controller");
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter name");
+		log.info("Enter name");
 		String name = sc.next();
 		
-		System.out.println("Enter password");
-		String password = sc.next();
+		log.info("Enter phonenumber");
+		String phonenumber = sc.next();
 		
-		System.out.println("Enter email");
+		log.info("Enter email");
 		String email = sc.next();
 		
-		System.out.println("Enter address");
+		log.info("Enter address");
 		String address = sc.next();
 		
 		CarUser cu = new CarUser();
 		cu.setName(name);
-		cu.setPassword(password);
+		cu.setphonenumber(phonenumber);
 		cu.setEmail(email);
 		cu.setAddress(address);
 		int i = cs.createProfileService(cu);
-		
 		if(i>0)
 		{
 			System.out.println("your profile created");
@@ -63,7 +65,7 @@ public class CarController implements CarControllerInterface {
 			for (CarUser i : lis) {
 				System.out.println("*****************************");
 				System.out.println("Name is "+i.getName());
-				System.out.println("Password is "+i.getPassword());
+				System.out.println("phonenumber is "+i.getphonenumber());
 				System.out.println("Email is "+i.getEmail());
 				System.out.println("Address is "+i.getAddress());
 			}
@@ -75,7 +77,7 @@ public class CarController implements CarControllerInterface {
 		ll.forEach(s->{
 			System.out.println("********************");
 			System.out.println(s.getName());
-			System.out.println(s.getPassword());
+			System.out.println(s.getphonenumber());
 			System.out.println(s.getEmail());
 			System.out.println(s.getAddress());
 			});
@@ -86,7 +88,7 @@ public class CarController implements CarControllerInterface {
 		ll.forEach(s->{
 			System.out.println("********************");
 			System.out.println(s.getName());
-			System.out.println(s.getPassword());
+			System.out.println(s.getphonenumber());
 			System.out.println(s.getEmail());
 			System.out.println(s.getAddress());
 			});
@@ -106,7 +108,7 @@ public class CarController implements CarControllerInterface {
 		
 		if (user != null) {
 			System.out.println("Name is " + user.getName());
-			System.out.println("Password is " + user.getPassword());
+			System.out.println("phonenumber is " + user.getphonenumber());
 			System.out.println("Email is " + user.getEmail());
 			System.out.println("Address " + user.getAddress());
 		}
@@ -131,25 +133,25 @@ public class CarController implements CarControllerInterface {
 		System.out.print("Edit name : ");
 		String name = sc.next();
 		
-		System.out.print("Edit password : ");
-		String password = sc.next();
+		System.out.print("Edit phonenumber : ");
+		String phonenumber = sc.next();
 		
 		System.out.print("Edit address : ");
 		String address = sc.next();
 		
 		CarUser fu1 = new CarUser();
 		fu1.setName(name);
-		fu1.setPassword(password);
+		fu1.setphonenumber(phonenumber);
 		fu1.setAddress(address);
 		int i = cs.editProfileService(fu, fu1);
 		
 		if (i > 0) {
 			System.out.println("Profile edited");
-			System.out.println();
+			
 		}	
 		else {
 			System.out.println("Could not edit your profile");
-			System.out.println();
+			
 		}
 		
 		return i;
@@ -190,7 +192,7 @@ public class CarController implements CarControllerInterface {
 			for (CarUser user : lis) {
 				System.out.println("-----------------------");
 				System.out.println("Name is " + user.getName());
-				System.out.println("Password is " + user.getPassword());
+				System.out.println("phonenumber is " + user.getphonenumber());
 				System.out.println("Email is " + user.getEmail());
 				System.out.println("Address " + user.getAddress());
 			}
@@ -214,17 +216,17 @@ public class CarController implements CarControllerInterface {
 			for (CarUser user : lis) {
 				System.out.println("^^^^^^^^^^^^^^");
 				System.out.println("Name is " + user.getName());
-				System.out.println("Password is " + user.getPassword());
+				System.out.println("phonenumber is " + user.getphonenumber());
 				System.out.println("Email is " + user.getEmail());
 				System.out.println("Address is " + user.getAddress());
 			}
 			
-			System.out.println();
+			
 		}
 		
 		else {
 			System.out.println("No profiles found");
-			System.out.println();
+			
 		}
 		
 		return lis;
@@ -234,11 +236,11 @@ public class CarController implements CarControllerInterface {
 	public CarUser signinProfileController() {
 		System.out.println("Enter the email to signin");
 		String email=sc.next();
-		System.out.println("Enter the password to signin");
-		String password = sc.next();
+		System.out.println("Enter the phonenumber to signin");
+		String phonenumber = sc.next();
 		CarUser fu = new CarUser();
 		fu.setEmail(email);
-		fu.setPassword(password);
+		fu.setphonenumber(phonenumber);
 		CarUser user = cs.viewProfileService(fu);
 		return user;
 	}

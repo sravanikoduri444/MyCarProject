@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.Car.entity.CarUser;
+
+import car.exception1.ReserveWordexception;
+
 //import com.Car.entity.TimelineDetails;
 public class CarDAO implements CarDAOInterface {
 	Connection con=null;
@@ -20,19 +24,26 @@ public class CarDAO implements CarDAOInterface {
 		}
 	}
 
-	public int createProfileDAO(CarUser cu) {
+	public int createProfileDAO(CarUser cu)  {
 		int i=0;
 		try{
+			if (cu.getName().contentEquals("Car")) { throw new ReserveWordexception(); }
+			
 			PreparedStatement ps=con.prepareStatement("insert into CarUser values(?,?,?,?)");
 			ps.setString(1, cu.getName());
-			ps.setString(2, cu.getPassword());
+			ps.setString(2, cu.getphonenumber());
 			ps.setString(3,cu.getEmail() );
 			ps.setString(4, cu.getAddress());
 			i=ps.executeUpdate();
 		}
+		catch(ReserveWordexception e)
+		{
+			System.out.println(e);
+		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		return i;
 	}
 
@@ -50,7 +61,7 @@ public class CarDAO implements CarDAOInterface {
 
 				CarUser ss=new CarUser();
 				ss.setName(n);
-				ss.setPassword(p);
+				ss.setphonenumber(p);
 				ss.setEmail(e);
 				ss.setAddress(a);
 				
@@ -78,7 +89,7 @@ public class CarDAO implements CarDAOInterface {
 				String a = res.getString(4);
 				user = new CarUser();
 				user.setName(n);
-				user.setPassword(p);
+				user.setphonenumber(p);
 				user.setEmail(e);
 				user.setAddress(a);
 				
@@ -97,25 +108,22 @@ public class CarDAO implements CarDAOInterface {
 		int i = 0;
 		
 		try {
-			 ps = con.prepareStatement("update CarUser set name = ?, password = ?, address = ?  where email = ?");
+			if (fu1.getName() == "Facebook") { throw new ReserveWordexception(); }
+			 ps = con.prepareStatement("update CarUser set name = ?, phonenumber = ?, address = ?  where email = ?");
 			ps.setString(1, fu1.getName());
-			ps.setString(2, fu1.getPassword());
+			ps.setString(2, fu1.getphonenumber());
 			ps.setString(3, fu1.getAddress());
 			ps.setString(4, fu.getEmail());
 			i = ps.executeUpdate();
+		}
+		catch(ReserveWordexception e)
+		{
+			System.out.println(e);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		finally {
-			if(ps!=null) {
-					try {
-						ps.close();}
-			catch (SQLException e) {
-					e.printStackTrace();}
-				}
-			}
 		return i;
 		
 	}
@@ -152,7 +160,7 @@ public class CarDAO implements CarDAOInterface {
 				
 				CarUser user = new CarUser();
 				user.setName(n);
-				user.setPassword(p);
+				user.setphonenumber(p);
 				user.setEmail(e);
 				user.setAddress(a);
 				
@@ -182,7 +190,7 @@ public class CarDAO implements CarDAOInterface {
 				CarUser user = new CarUser();
 				user = new CarUser();
 				user.setName(n);
-				user.setPassword(p);
+				user.setphonenumber(p);
 				user.setEmail(e);
 				
 				lis.add(user);
@@ -207,7 +215,7 @@ public class CarDAO implements CarDAOInterface {
 				String p = res.getString(3);
 				CarUser user = new CarUser();
 				user.setEmail(e);
-				user.setPassword(p);
+				user.setphonenumber(p);
 			}
 		}
 		catch(Exception e) {
@@ -219,4 +227,3 @@ public class CarDAO implements CarDAOInterface {
 }
 	
 	
-

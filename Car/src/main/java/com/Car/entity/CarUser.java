@@ -1,7 +1,7 @@
 package com.Car.entity;
 public class CarUser {
 	private String name;
-	private String password;
+	private String phonenumber;
 	private String email;
 	private String address;
 	public String getName() {
@@ -10,11 +10,11 @@ public class CarUser {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPassword() {
-		return password;
+	public String getphonenumber() {
+		return phonenumber;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setphonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 	public String getEmail() {
 		return email;

@@ -1,7 +1,5 @@
 package com.Car;
-
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -23,8 +21,6 @@ public class ControllerTest {
 	public void tearDown() throws Exception {
 		cc=null;
 	}
-	
-
 	@Test
 	public void testCreateProfileController() {
 	int i = cc.createProfileController();
